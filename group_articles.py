@@ -11,6 +11,4 @@ for (root, dirs, files) in os.walk("./news/"):
             name = category.split()[1]
             if not os.path.exists(f"./grouped_news/{name}"):
                 os.makedirs(f"./grouped_news/{name}")
-                shutil.copyfile(f"news/{f}", f"./grouped_news/{name}/{f}")
-            else:
-                shutil.copyfile(f"news/{f}", f"./grouped_news/{name}/{f}")
+            shutil.copyfile(f"news/{f}", f"./grouped_news/{name}/{f}")
