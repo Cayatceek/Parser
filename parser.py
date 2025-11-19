@@ -7,7 +7,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support import expected_conditions as ec
 
 def setup_driver():
     """Setup Chrome WebDriver with options"""
@@ -209,7 +209,7 @@ def main():
             # Try specific class from screenshot
             try:
                 next_elem = WebDriverWait(list_driver, 10).until(
-                    EC.element_to_be_clickable((By.CLASS_NAME, "point-view__footer-btn"))
+                    ec.element_to_be_clickable((By.CLASS_NAME, "point-view__footer-btn"))
                 )
             except Exception as e:
                 print(e)
@@ -218,7 +218,7 @@ def main():
                 # Try dynamic ID
                 try:
                     next_elem = WebDriverWait(list_driver, 10).until(
-                        EC.element_to_be_clickable((By.XPATH, "//div[contains(@id, 'ias_trigger')]/button"))
+                        ec.element_to_be_clickable((By.XPATH, "//div[contains(@id, 'ias_trigger')]/button"))
                     )
                 except Exception as e:
                     print(e)
@@ -239,7 +239,7 @@ def main():
                 for xp in xpaths:
                     try:
                         next_elem = WebDriverWait(list_driver, 10).until(
-                            EC.element_to_be_clickable((By.XPATH, xp))
+                            ec.element_to_be_clickable((By.XPATH, xp))
                         )
                         break
                     except Exception as e:
@@ -250,7 +250,7 @@ def main():
                 for cls in classes:
                     try:
                         next_elem = WebDriverWait(list_driver, 10).until(
-                            EC.element_to_be_clickable((By.CLASS_NAME, cls))
+                            ec.element_to_be_clickable((By.CLASS_NAME, cls))
                         )
                         break
                     except Exception as e:
