@@ -2,6 +2,7 @@ import os
 import time
 import re
 from selenium import webdriver
+from selenium.common import TimeoutException, WebDriverException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
@@ -211,8 +212,8 @@ def main():
                 next_elem = WebDriverWait(list_driver, 10).until(
                     EC.element_to_be_clickable((By.CLASS_NAME, "point-view__footer-btn"))
                 )
-            except:
-                pass
+            except Exception as e:
+                print(e)
             
             if not next_elem:
                 # Try dynamic ID
@@ -220,8 +221,9 @@ def main():
                     next_elem = WebDriverWait(list_driver, 10).until(
                         EC.element_to_be_clickable((By.XPATH, "//div[contains(@id, 'ias_trigger')]/button"))
                     )
-                except:
-                    pass
+                except Exception as e:
+                    print(e)
+
             
             if not next_elem:
                 xpaths = [
@@ -241,8 +243,8 @@ def main():
                             EC.element_to_be_clickable((By.XPATH, xp))
                         )
                         break
-                    except:
-                        pass
+                    except Exception as e:
+                        print(e)
             
             if not next_elem:
                 classes = ["point-view__footer-btn", "more-btn", "load-more", "load-more-btn", "btn-load-more", "more-news", "load-more__button"]
@@ -252,8 +254,8 @@ def main():
                             EC.element_to_be_clickable((By.CLASS_NAME, cls))
                         )
                         break
-                    except:
-                        pass
+                    except Exception as e:
+                        print(e)
             
             if not next_elem:
                 elements = list_driver.find_elements(By.XPATH, "//button")
@@ -296,9 +298,10 @@ def main():
                             lambda d: len(get_current_article_links(d)) > old_links_len
                         )
                         print("New articles appended successfully.")
-                    except:
+                    except TimeoutException:
                         print("Timeout waiting for new articles to append after 60 seconds. Stopping.")
-                        break
+                    except Exception as e:
+                        print(e)
                 
                 time.sleep(5)
         
@@ -314,8 +317,10 @@ def main():
         try:
             list_driver.quit()
             extract_driver.quit()
-        except:
+        except WebDriverException:
             print("Error closing WebDrivers")
+        except Exception as e:
+            print(e)
 
 if __name__ == "__main__":
     main()
