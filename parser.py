@@ -8,7 +8,6 @@ from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from datetime import datetime
 
 def setup_driver():
     """Setup Chrome WebDriver with options"""
